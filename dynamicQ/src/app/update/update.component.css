@@ -1,0 +1,20 @@
+label{
+    color:brown;
+    font-weight: bolder;
+    
+}
+.example-spacer {
+    flex: 1 1 auto;
+}
+.nooff{
+    border: 0.5px solid blue ;
+    border-radius: 150%;
+    padding: 5px;
+    width: 150%;
+    color: white;
+    background-color: blue;
+}
+
+
+
+

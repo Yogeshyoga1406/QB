@@ -1,0 +1,19 @@
+
+    :host {
+      display: flex;
+    }
+
+    .example-pizza-party {
+      color: rgb(14, 250, 14);
+    }
+
+    .update-snackbar{
+      background-color: rgb(228, 246, 255);
+      color:rgb(20, 6, 150);
+    }
+
+    .delete-snackbar{
+      background-color: rgb(250, 207, 207);
+      color:rgb(150, 6, 6);
+    }
+  

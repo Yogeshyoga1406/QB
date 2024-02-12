@@ -1,0 +1,53 @@
+<div class="container mt-4">
+    <div class="card" style="padding: 20px; background-color: #f7fcfc;">
+       <div style="display: flex; justify-content: space-between;">
+        <div style="display: flex; justify-content: center;">
+            <h1 style="color: #38788d;  font-family: cursive;">Product details</h1>
+        </div>
+        <div *ngIf="product.file!=undefined">
+            <img [src]="getImageDataUrl(product.file.data)" alt="" 
+          style="width: 100px; height: 80px; border: 1px solid black; border-radius: 10%;">
+        </div>
+       </div>
+        <hr>
+        <table  class="table table-striped table-bordered table-sm row-border hover">
+            <thead >
+               <tr >
+                <th>Product ID</th>
+                <th *ngFor="let prod of product.details">{{prod.field}}</th>
+               </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{product.id}}</td>
+                    <td *ngFor="let prod of product.details">{{prod.value}}</td>
+                </tr>
+            </tbody>
+        </table>
+       
+    </div>
+    <button style="justify-content: center; margin-bottom: 30px;" type="submit" 
+     class="btn btn-dark mt-4" (click)="back()">Go back</button>
+</div>
+
+<!-- ======================================================================================================= -->
+
+<!-- <div class="card">
+    <div class="card-image">
+        <div *ngIf="product.file!=undefined">
+            <img [src]="getImageDataUrl(product.file.data)" alt="" 
+          style="width: 100%; height: 130px; border: 1px solid black; border-radius: 10%;">
+        </div>
+    </div>
+    <div class="category"> {{product.details[0].value}}</div>
+    <span style="margin-top: 10px;">
+        <p class="fields">{{product.details[1].field}} : {{product.details[1].value}}</p>
+        <p class="fields">{{product.details[2].field}} : {{product.details[2].value}}</p>
+    </span>
+  
+    <div style="justify-content: flex-end; display: flex;">
+        <button class="cssbuttons-io">
+            <span>See more</span>
+          </button>
+    </div>
+</div> -->

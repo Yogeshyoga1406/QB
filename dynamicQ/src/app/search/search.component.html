@@ -1,0 +1,121 @@
+<div class="container mt-4">
+   
+    <br>
+    <div class="card" style=" background-color: #f7fcfc;">
+        <div style="padding: 20px;">
+            <h1 style="color: #38788d; font-family: cursive;"><span style="color: rgb(58, 58, 90);"> <mat-icon >search</mat-icon></span> Search product</h1>
+          
+        <hr>
+        <div>
+                       
+            <p style="text-align: center; color: rgb(17, 15, 15); font-weight: bolder;">Search by</p>
+            <div style="align-items: center;">
+                <mat-tab-group [backgroundColor]="'accent'" mat-stretch-tabs class="example-stretched-tabs">
+                    <mat-tab label="Field & Value"> 
+                        <br>
+                        <form>
+                            
+                              <mat-form-field appearance="outline">
+                                <mat-label>Field</mat-label>
+                                    <input  matInput placeholder="Ex. Product" type="search" [(ngModel)]="field" [ngModelOptions]="{standalone:true}" 
+                                    id="field" name="field">
+                               </mat-form-field>
+                            
+                                <mat-form-field appearance="outline" style="margin-left: 20px;">
+                                    <mat-label>Value</mat-label>
+                                        <input matInput placeholder="Ex. Shoe/500" type="search" [(ngModel)]="value" [ngModelOptions]="{standalone:true}" 
+                                        id="value" name="value">
+                                </mat-form-field>
+                             <br>
+                        <button style="margin-left: 170px; margin-bottom: 30px;" type="submit" class="btn btn-dark mt-4"
+                            (click)="search()">Search</button>
+                         </form>    
+                    </mat-tab>
+                    <mat-tab label="Field"> 
+                        <br> 
+                        <form >
+                            <mat-form-field appearance="outline">
+                                <mat-label>Field</mat-label>
+                                    <input matInput placeholder="Ex. Product" type="search" [(ngModel)]="field" [ngModelOptions]="{standalone:true}" 
+                                    id="field" name="field">
+                                </mat-form-field>
+                                <br>
+                             <button style="margin-left: 170px; margin-bottom: 30px;" type="submit" class="btn btn-dark mt-4"
+                              (click)="searchf()">Search</button>
+                            </form>
+                    </mat-tab>
+                    <mat-tab label="Value">  
+                        <br>
+                        <form >
+        
+                            <mat-form-field style="margin-left: 20px;" appearance="outline">
+                                <mat-label>Value</mat-label>
+                                    <input matInput placeholder="Ex. Shoe/500" type="search" [(ngModel)]="value" [ngModelOptions]="{standalone:true}" 
+                                    id="value" name="value">
+                            </mat-form-field>
+                               <br>
+                               <button style="margin-left: 170px; margin-bottom: 30px;" type="submit" class="btn btn-dark mt-4"
+                              (click)="searchv()">Search</button>
+                       </form>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+            </div>
+        <hr>
+        <div>
+            <div *ngIf="datanull"><p>Sorry..No data to display...</p></div>
+            <div *ngFor="let product of products" style="display: block;">
+                <div>
+                 <p style="color: #056905;">Product Id : {{product.id}}</p>
+                 <div *ngFor="let det of product.details">
+                     <p style="color: rgb(8, 8, 155);">{{det.field}} : {{det.value}}</p>
+                 </div>
+                </div>
+
+                <hr>
+             </div>
+        </div>
+        </div>
+        
+    </div>
+</div>
+
+
+  <!-- <p>
+                <span for="gender">Search based on</span><br>
+                <button class="btn btn-warning" (click)="fav()">Field & Value <span [hidden]="fv" style="color: red;">*</span></button>
+                <button class="btn btn-warning" style="margin-left: 20px;" (click)="fi()">Field <span [hidden]="f" style="color: red;">*</span></button>
+                <button class="btn btn-warning" style="margin-left: 20px;" (click)="va()">Value <span [hidden]="v" style="color: red;">*</span></button>
+            </p>
+            <form [hidden]="fv">
+            
+                <label for="field">Field*</label>
+                <input type="text" [(ngModel)]="field" [ngModelOptions]="{standalone:true}" 
+                    id="field" name="field" placeholder="ex:- product">
+    
+                <label for="value" style="margin-left: 10px;">Value*</label>
+                <input type="text" [(ngModel)]="value" [ngModelOptions]="{standalone:true}" 
+                    id="value" name="value" placeholder="ex:- Shoe">
+                 <br>
+            <button style="margin-left: 170px; margin-bottom: 30px;" type="submit" class="btn btn-dark mt-4"
+                (click)="search()">Search</button>
+             </form>
+
+            <form [hidden]="f">
+            <label for="field">Field*</label>
+            <input type="text" [(ngModel)]="field" [ngModelOptions]="{standalone:true}" 
+                id="field" name="field" placeholder="ex:- product">
+
+                 <br>
+             <button style="margin-left: 170px; margin-bottom: 30px;" type="submit" class="btn btn-dark mt-4"
+              (click)="searchf()">Search</button>
+            </form>
+            <form [hidden]="v">
+
+                 <label for="value">Value*</label>
+                 <input type="text" [(ngModel)]="value" [ngModelOptions]="{standalone:true}" 
+                    id="value" name="value" placeholder="ex:- Shoe">
+                    <br>
+                    <button style="margin-left: 170px; margin-bottom: 30px;" type="submit" class="btn btn-dark mt-4"
+                   (click)="searchv()">Search</button>
+            </form> -->

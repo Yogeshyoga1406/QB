@@ -1,0 +1,110 @@
+<div >
+  <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <a class="navbar-brand" href="#"><span style="font-size: 150%;">💠</span> SUKTHA Quotation Builder</a>
+   
+    <ul class="navbar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/add" routerLinkActive="active">Build Quotation</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/products" routerLinkActive="active">View Products-Q</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/search" routerLinkActive="active">Search Product</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/about" routerLinkActive="active">About SQB</a>
+      </li>
+    </ul>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <mat-icon color="warn">favorite</mat-icon>
+    </button>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon>share</mat-icon>
+    </button>
+
+    <div style="margin-right: 0px;">
+      <button style="font-size: 50px;" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon style=" color: white;">menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <span>About us</span>
+        </button>
+        <button mat-menu-item>
+          <span>Careers</span>
+        </button>
+        <button mat-menu-item>
+          <span>Services</span>
+        </button>
+        <button mat-menu-item>
+          <span>Help</span>
+        </button>
+        <button mat-menu-item>
+          <span routerLink="/search">Search Product</span>
+        </button>
+      </mat-menu>
+    </div>
+  </nav>
+  
+  <mat-drawer-container autosize >
+    <mat-drawer #drawer opened="true" mode="side" class="sidenav" style="background-color: #b3f0ff;">
+      <br><br><br><br>
+      <mat-nav-list>
+        <mat-list-item>
+          <button mat-button><mat-icon>dashboard</mat-icon>Dashboard</button>
+        </mat-list-item>
+        <mat-list-item>
+          <button mat-button><mat-icon>home</mat-icon>Home</button>
+        </mat-list-item>
+        <mat-list-item>
+          <button mat-button><mat-icon>settings</mat-icon>Setting</button>
+        </mat-list-item>
+        <mat-list-item>
+          <button mat-button><mat-icon>help</mat-icon>Help</button>
+        </mat-list-item>
+        <mat-list-item>
+          <button mat-button routerLink="/search"><mat-icon>search</mat-icon>Search Product</button>
+        </mat-list-item>
+       
+      </mat-nav-list>
+    </mat-drawer>
+
+    <mat-drawer-content  >
+      <div class="container" style="height: 800px;">
+        <br><br><br><br>
+       <div  style="justify-content: center; display: flex;">
+        <div class="button">
+          <span class="liquid"></span>  
+          <span class="btn-txt">
+              <h1 style="text-align: center; color: rgb(167, 4, 167); font-weight: bolder; font-style: oblique;">
+                  
+                  <span style="color: #bd0202; font-size: 30px;">
+                   <span style="font-family: cursive ; font-size: 40px;">D</span><span>y</span><span>n</span><span>a</span><span>m</span>
+                  <span>i</span><span>c</span><span style="color: rgb(0, 0, 0);">Q</span>
+                  </span>
+             </h1>
+          </span>
+        </div>
+       </div>
+        
+        <hr>
+        <div class="card" style="border-radius: 12px;
+        background: #ffffff;
+        box-shadow: inset -9px -9px 18px #999999,
+                    inset 9px 9px 18px #ffffff; padding-bottom: 30px;">
+          <div class="card-body">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </div>
+    
+    </mat-drawer-content>
+
+  </mat-drawer-container>
+     
+    
+  
+</div>

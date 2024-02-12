@@ -1,0 +1,212 @@
+
+<div class="container mt-4">
+  <div class="card" style="padding: 20px; background-color: #f7fcfc;">
+      <mat-toolbar style="background-color: #f7fcfc;">
+          <h1 style="color: #38788d; font-size: larger;  font-family: cursive;">Edit Product Details</h1>
+          
+          <span class="example-spacer"></span>
+          <h6  style="color: #0b0c0c; font-size: smaller;  font-family: cursive; margin-left: 200px;">Total fields count : 
+            <span class="nooff"><span *ngIf="product.details.length+1<=9">0</span>{{product.details.length+1}}</span></h6>
+      </mat-toolbar>   
+      
+      <form [hidden]="sa">
+          <mat-form-field appearance="outline">
+            <mat-label>Field</mat-label>
+            <input matInput placeholder="Ex. Product" type="text" [(ngModel)]="field" [ngModelOptions]="{standalone:true}"
+            id="field" name="field">
+          </mat-form-field>&nbsp;
+              <label class="example-margin">please select data type:</label>
+              <mat-radio-group [(ngModel)]="dtype" [ngModelOptions]="{standalone:true}">
+                <mat-radio-button  value="String">
+                  String
+                </mat-radio-button>
+                <mat-radio-button  value="Number">
+                  Number
+                </mat-radio-button>
+                <mat-radio-button  value="Date">
+                  Date
+                </mat-radio-button>
+                <mat-radio-button  value="Calc">
+                  Derivation
+                </mat-radio-button>
+                <mat-radio-button  value="Desc">
+                  Description
+                </mat-radio-button>
+              </mat-radio-group>&nbsp;
+              
+          <mat-form-field *ngIf="dtype==='String'" appearance="outline">
+              <mat-label>Value--string</mat-label>
+              <input matInput placeholder="Ex. Shoe" type="text" [(ngModel)]="value" [ngModelOptions]="{standalone:true}"
+              id="value" name="value">
+          </mat-form-field>
+          <mat-form-field *ngIf="dtype==='Number'" appearance="outline">
+              <mat-label>Value--number</mat-label>
+              <input matInput placeholder="Ex. Shoe" type="number" [(ngModel)]="value" [ngModelOptions]="{standalone:true}"
+              id="value" name="value">
+          </mat-form-field>
+          
+          <mat-form-field *ngIf="dtype==='Date'" appearance="outline">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="value" [ngModelOptions]="{standalone:true}"
+            id="value" name="value">
+            <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          
+          <mat-form-field *ngIf="dtype==='Desc'" style="width: 50%;" appearance="outline">
+            <mat-label>Leave a comment</mat-label>
+            <textarea matInput placeholder="Ex. It makes me feel..." [(ngModel)]="value" [ngModelOptions]="{standalone:true}"
+            id="value" name="value"></textarea>
+          </mat-form-field>
+          &nbsp;&nbsp;
+          <button style="border-radius: 0%;" class="btn btn-primary" (click)="add()">➕</button>
+
+          
+          <form *ngIf="dtype==='Calc'">
+              <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Operand 1</mat-label>
+                  <mat-select name="op1" id="op1" [(ngModel)]="op1" [ngModelOptions]="{standalone:true}">
+                      <mat-option *ngFor="let det of product.details" [value]="det.value">
+                        {{det.field}}
+                      </mat-option>
+                  </mat-select>
+              </mat-form-field>
+              &nbsp;
+              <mat-form-field style="width: 125px;" appearance="outline">
+                  <mat-label>Operation</mat-label>
+                  <mat-select name="o1" id="o1" [(ngModel)]="o1" [ngModelOptions]="{standalone:true}">
+                    <mat-option *ngFor="let operation of operations" [value]="operation.viewValue">
+                      {{operation.viewValue}}
+                    </mat-option>
+                  </mat-select>
+              </mat-form-field>
+              &nbsp;
+              <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Operand 2</mat-label>
+                  <mat-select name="op2" id="op2" [(ngModel)]="op2" [ngModelOptions]="{standalone:true}">
+                      <mat-option *ngFor="let det of product.details" [value]="det.value">
+                        {{det.field}}
+                      </mat-option>
+                  </mat-select>
+              </mat-form-field>
+              &nbsp;
+              
+                <mat-form-field style="width: 125px;" *ngIf="extraFieldCalc" appearance="outline">
+                  <mat-label>Operation</mat-label>
+                  <mat-select name="o2" id="o2" [(ngModel)]="o2" [ngModelOptions]="{standalone:true}">
+                    <mat-option *ngFor="let operation of operations" [value]="operation.viewValue">
+                      {{operation.viewValue}}
+                    </mat-option>
+                  </mat-select>
+              </mat-form-field>
+              &nbsp;
+              <mat-form-field class="example-full-width" *ngIf="extraFieldCalc" appearance="outline">
+                  <mat-label>Operand 3</mat-label>
+                  <mat-select name="op3" id="op3" [(ngModel)]="op3" [ngModelOptions]="{standalone:true}">
+                      <mat-option *ngFor="let det of product.details" [value]="det.value">
+                        {{det.field}}
+                      </mat-option>
+                  </mat-select>
+                  <!-- <input matInput type="text" name="op2" id="op2" [(ngModel)]="op2" [ngModelOptions]="{standalone:true}" > -->
+              </mat-form-field>
+             
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <button  class="btn btn-success" (click)="doCalc()">Calculate</button>&nbsp;&nbsp;
+              <button  class="btn btn-primary" (click)="showExtraCalc()">Add Operand</button>
+              <br><br>
+              <mat-form-field appearance="outline">
+                  <mat-label>Value--calc</mat-label>
+                  <input matInput placeholder="Ex. Shoe" type="text" [(ngModel)]="value" [ngModelOptions]="{standalone:true}"
+                  id="value" name="value">
+              </mat-form-field>
+          </form>
+         
+      </form> 
+
+      <form>
+          <!-- <div class="form-group">
+              <label for="id">Product id</label>
+              <input type="text" [(ngModel)]="product.id" [ngModelOptions]="{standalone:true}" class="form-control"
+                  id="id" name="id" placeholder="" disabled>
+          </div> -->
+
+          <!-- <div class="form-group" *ngFor="let det of product.details; let myIndex=index">
+              <div class="input-group">
+                 <label for="details" style="margin-top: 7px;">{{det.field}}</label>
+                 <span> <button (click)="openDialog(myIndex)" mat-button color="warn" ><mat-icon>delete_forever</mat-icon></button></span>
+                 <span> <button (click)="editField(myIndex)" mat-button color="primary"><mat-icon>edit</mat-icon></button></span>
+                
+                 <div *ngIf="myIndex==ind"  style="margin-top: 7px;"><p>Edit Field :&nbsp; </p></div>
+                <div *ngIf="myIndex==ind"  style="margin-top: 5px;">
+                    <input type="text" style="height: 25px; border: 1px solid rgb(22, 209, 22);" [(ngModel)]="det.field" [ngModelOptions]="{standalone:true}" class="form-control"
+                    id="details" name="details" placeholder="">
+                </div>
+                <button mat-button color="white" *ngIf="myIndex==ind" (click)="editFieldComplete()">✔️</button>
+              </div>
+              <input type="text" [(ngModel)]="det.value" [ngModelOptions]="{standalone:true}" class="form-control"
+                  id="details" name="details" placeholder="">
+          </div> -->
+
+          <div>
+            <form>
+              <mat-form-field >
+                <mat-label>Product Id</mat-label>
+                <input matInput placeholder="Ex. Product" type="text" [(ngModel)]="product.id" [ngModelOptions]="{standalone:true}"
+                id="product.id" name="product.id" disabled>
+              </mat-form-field>
+              
+              <br>
+            
+              <span class="form-group" *ngFor="let det of product.details; let myIndex=index">
+                <mat-toolbar  *ngIf="myIndex==ind" style="background-color: #f7fcfc;">
+                  <div style="font-size: small;"  *ngIf="myIndex==ind">Edit field : </div>
+                  <div *ngIf="myIndex==ind"  >
+                    
+                    <input type="text" style="width: 100%; height: 30px; border: 1px solid rgb(22, 209, 22);" [(ngModel)]="det.field" [ngModelOptions]="{standalone:true}" class="form-control"
+                      id="details" name="details" placeholder="">
+                     
+                  </div>&nbsp;&nbsp;
+                  <div><button mat-button color="white" *ngIf="myIndex==ind" (click)="editFieldComplete()">✔️</button></div>
+                </mat-toolbar>
+               
+                <mat-form-field style="width: 35%;" >
+                  <mat-label>{{det.field}} </mat-label>
+                  <input matInput placeholder=""  [(ngModel)]="det.value" [ngModelOptions]="{standalone:true}" 
+                  id="details" name="details">
+                </mat-form-field>
+                <span> <button (click)="openDialog(myIndex)" mat-button color="warn" ><mat-icon>delete_forever</mat-icon></button></span>
+                 <span> <button (click)="editField(myIndex)" mat-button color="primary"><mat-icon>edit</mat-icon></button></span>
+                
+              </span>
+              <div>
+                <img [src]="getImageDataUrl(product.file.data)" alt="" *ngIf="product.file!=null"
+                style="width: 180px; height: 150px; border: 1px solid black; border-radius: 10%;">
+                &nbsp;&nbsp;&nbsp;<input type="file" (change)="onFileSelected($event)" />
+                <p *ngIf="product.file!=null">Product Image</p>
+              </div>
+            </form>
+          </div>            
+
+          <br>
+          <div style="text-align: center;">
+            <button style=" margin-bottom: 30px;" type="submit" class="btn btn-dark mt-4"
+            (click)="update(product)"><span><mat-icon>update</mat-icon></span> Update</button>
+            <button style="margin-left: 80px; color: white; margin-bottom: 30px;" type="submit" class="btn btn-primary mt-4"
+            (click)="showAdd()"><span><mat-icon>add</mat-icon></span> Add Fields</button>
+            <button style="margin-left: 80px; margin-bottom: 30px;" type="submit" 
+            class="btn btn-dark mt-4" (click)="back()"><span><mat-icon>close</mat-icon></span>Close</button>
+          </div>
+      </form>
+  </div>
+</div>
+
+<br>
+
+
+
+
+
+
+
+
