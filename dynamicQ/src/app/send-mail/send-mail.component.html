@@ -1,0 +1,27 @@
+<form (ngSubmit)="onSendEmail()">
+  <span>Attach file to mail : </span>
+    <input type="file" #fileInput multiple />
+   <br><br>
+    <button type="submit" [disabled]="!(excelData.length>0)">Send Email</button>
+</form><br>
+<span>Please select the file</span>
+<input type="file" (change)="onFileChange($event)" />
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>S.NO</th>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of excelData">
+          <td>{{row.__rowNum__}}</td>
+          <td>{{row.Name}}</td>
+          <td>{{row.Email}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+   

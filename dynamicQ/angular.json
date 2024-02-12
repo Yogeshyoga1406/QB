@@ -61,10 +61,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "dynamicQ:build:production"
+              "buildTarget": "dynamicQ:build:production"
             },
             "development": {
-              "browserTarget": "dynamicQ:build:development"
+              "buildTarget": "dynamicQ:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -72,7 +72,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "dynamicQ:build"
+            "buildTarget": "dynamicQ:build"
           }
         },
         "test": {

@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { SuccessComponent } from '../success/success.component';
+import { DerivationComponent } from '../derivation/derivation.component';
 
 @Component({
   selector: 'app-update',
@@ -13,8 +14,10 @@ import { SuccessComponent } from '../success/success.component';
 })
 export class UpdateComponent implements OnInit{
 
-  constructor(private http:HttpClient,private router:Router,private route:ActivatedRoute,private _snackBar: MatSnackBar, private dialog: MatDialog){
-    this.id=this.route.snapshot.params['id'];
+  constructor(private http:HttpClient,private router:Router,private route:ActivatedRoute,private _snackBar: MatSnackBar,
+     private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) data: any){
+    // this.id=this.route.snapshot.params['id'];
+    this.id=data.id;
     this.getById(this.id);
     console.log(this.id);
   }
@@ -117,109 +120,12 @@ export class UpdateComponent implements OnInit{
     
     this.field="";
     this.value="";
-    this.op1=0;
-    this.op2=0;
-    this.op3=0;
-    this.o1="";
-    this.o2="";
   }
   sa=true;
   showAdd(){
     this.sa=false;
   }
-  operations= [
-    {value: 'add-0', viewValue: '+'},
-    {value: 'subtract-1', viewValue: '-'},
-    {value: 'multiply-2', viewValue: '*'},
-    {value: 'division-2', viewValue: '/'},
-  ];
-
-  op1!:number;
-  op2!:number;
-  op3!:number;
-  o1="";
-  o2="";
-  
-  doCalc(){
-    console.log("calculation part ",this.o1);
-    
-    if(this.o1!="" && this.o2==""){
-      if(this.o1=="+"){
-        this.value=this.op1+this.op2;
-      }
-      else if(this.o1=="-"){
-        this.value=this.op1-this.op2;
-      }
-      else if(this.o1=="*"){
-        this.value=this.op1*this.op2;
-      }
-      else if(this.o1=="/"){
-        this.value=this.op1/this.op2;
-      }
-      else{
-        console.log("invalid operation");
-      }
-    }
-    if(this.o1!="" && this.o2!=""){
-      if(this.o1=="+" && this.o2=="+"){
-        this.value=this.op1+this.op2+this.op3;
-      }
-      else if(this.o1=="+" && this.o2=="-"){
-        this.value=this.op1+this.op2-this.op3;
-      }
-      else if(this.o1=="+" && this.o2=="*"){
-        this.value=this.op1+this.op2*this.op3;
-      }
-      else if(this.o1=="+" && this.o2=="/"){
-        this.value=this.op1+this.op2/this.op3;
-      }
-      else if(this.o1=="-" && this.o2=="+"){
-        this.value=this.op1-this.op2+this.op3;
-      }
-      else if(this.o1=="-" && this.o2=="-"){
-        this.value=this.op1-this.op2-this.op3;
-      }
-      else if(this.o1=="-" && this.o2=="*"){
-        this.value=this.op1-this.op2*this.op3;
-      }
-      else if(this.o1=="-" && this.o2=="/"){
-        this.value=this.op1-this.op2/this.op3;
-      }
-      else if(this.o1=="*" && this.o2==""){
-        this.value=this.op1*this.op2-this.op3;
-      }
-      else if(this.o1=="*" && this.o2=="+"){
-        this.value=this.op1*this.op2+this.op3;
-      }
-      else if(this.o1=="*" && this.o2=="-"){
-        this.value=this.op1*this.op2-this.op3;
-      }
-      else if(this.o1=="*" && this.o2=="*"){
-        this.value=this.op1*this.op2*this.op3;
-      }
-      else if(this.o1=="*" && this.o2=="/"){
-        this.value=this.op1*this.op2/this.op3;
-      }
-      else if(this.o1=="/" && this.o2==""){
-        this.value=this.op1/this.op2-this.op3;
-      }
-      else if(this.o1=="/" && this.o2=="+"){
-        this.value=this.op1/this.op2+this.op3;
-      }
-      else if(this.o1=="/" && this.o2=="-"){
-        this.value=this.op1/this.op2-this.op3;
-      }
-      else if(this.o1=="/" && this.o2=="*"){
-        this.value=this.op1/this.op2*this.op3;
-      }
-      else if(this.o1=="/" && this.o2=="/"){
-        this.value=this.op1/this.op2/this.op3;
-      }
-      else{
-        console.log("invalid operation");
-      }
-    }
-  }
+ 
   openDialog(index:number) {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
     data:{
@@ -246,5 +152,22 @@ export class UpdateComponent implements OnInit{
   }
   back(){
     this.router.navigate(['products']);
+  }
+  startDerive(pid:number){
+    this.dtype='Number';
+    const dialogRef = this.dialog.open(DerivationComponent,{
+      data:{
+          id:pid
+      }
+    });
+    dialogRef.afterClosed().subscribe((data?: any) => {
+      // console.log(data.flag);
+      // if (this.confirmed) {
+        
+      // }
+      if(data){
+      this.value=data;
+      }
+    });
   }
 }

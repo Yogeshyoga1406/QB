@@ -1,0 +1,20 @@
+.footer{
+    position: fixed;
+    z-index: 2;
+    width: 100%;
+}
+.first-line{
+    display: flex; 
+    justify-content: flex-end;
+    /* position: 0px sticky!important; */
+    margin-top: 0px;
+}
+.first-line-button{
+    background-color: rgb(243, 71, 71); 
+    color: white; 
+    border: none; 
+    padding: 1px 18px;
+}
+.first-line-button:hover{
+    background-color: red;
+}

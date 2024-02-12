@@ -1,6 +1,7 @@
 <div >
-  <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-    <a class="navbar-brand" href="#"><span style="font-size: 150%;">💠</span> SUKTHA Quotation Builder</a>
+  <nav class="navbar navbar-expand-sm  navbar-dark" [ngClass]="navBackgroundDark == false ? 'bg-primary' : 'bg-dark'">
+    <a class="navbar-brand" href="#"><span style="font-size: 150%;"> 🌐 </span> SUKTHA Quotation Builder</a>
+    <!-- 💠 -->
    
     <ul class="navbar-nav">
 
@@ -16,15 +17,25 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/about" routerLinkActive="active">About SQB</a>
       </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link" routerLink="/calc" routerLinkActive="active">Calculator</a>
+      </li> -->
     </ul>
     <span class="example-spacer"></span>
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-      <mat-icon color="warn">favorite</mat-icon>
+    
+    <button mat-icon-button class="example-icon favorite-icon" [ngStyle]="navBackgroundDark ? {'color': 'white'} : {}">
+      <mat-icon>help</mat-icon>
     </button>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <button mat-icon-button class="example-icon" [ngStyle]="navBackgroundDark ? {'color': 'white'} : {}">
       <mat-icon>share</mat-icon>
     </button>
-
+    <label class="ui-switch">
+      <input type="checkbox" (click)="changeBg()">
+      <div class="slider">
+        <div class="circle"></div>
+      </div>
+    </label>
+    
     <div style="margin-right: 0px;">
       <button style="font-size: 50px;" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
         <mat-icon style=" color: white;">menu</mat-icon>
@@ -49,12 +60,12 @@
     </div>
   </nav>
   
-  <mat-drawer-container autosize >
-    <mat-drawer #drawer opened="true" mode="side" class="sidenav" style="background-color: #b3f0ff;">
+  <mat-drawer-container autosize [ngStyle]="navBackgroundDark ? {'background-color': '#161717'} : {}">
+    <mat-drawer #drawer opened="true" mode="side" class="sidenav" [ngStyle]="navBackgroundDark ? {'background-color': '#a3a19d'} : {'background-color': '#78c3e3'}">
       <br><br><br><br>
       <mat-nav-list>
         <mat-list-item>
-          <button mat-button><mat-icon>dashboard</mat-icon>Dashboard</button>
+          <button mat-button ><mat-icon>dashboard</mat-icon>Dashboard</button>
         </mat-list-item>
         <mat-list-item>
           <button mat-button><mat-icon>home</mat-icon>Home</button>
@@ -90,11 +101,12 @@
         </div>
        </div>
         
-        <hr>
+        <hr [ngStyle]="navBackgroundDark ? {'color': 'yellow'} : {}">
         <div class="card" style="border-radius: 12px;
         background: #ffffff;
         box-shadow: inset -9px -9px 18px #999999,
-                    inset 9px 9px 18px #ffffff; padding-bottom: 30px;">
+                    inset 9px 9px 18px #ffffff; padding-bottom: 30px;"
+                    >
           <div class="card-body">
             <router-outlet></router-outlet>
           </div>
@@ -105,6 +117,4 @@
 
   </mat-drawer-container>
      
-    
-  
 </div>

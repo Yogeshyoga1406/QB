@@ -1,7 +1,9 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SuccessComponent } from '../success/success.component';
+import { DerivationComponent } from '../derivation/derivation.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -18,7 +20,7 @@ export class ProductComponent {
   field!:string;
   value!:any;
 
-  constructor(private http: HttpClient,private _snackBar: MatSnackBar){
+  constructor(private http: HttpClient,private _snackBar: MatSnackBar,private dialog: MatDialog,){
     
     console.log();
   }
@@ -43,7 +45,7 @@ export class ProductComponent {
       this.fieldCount=0;
       // this.show=true
       this.selectedFile;
-              
+      this.dtype="String";
       this.openSnackBar();
       });
     }
@@ -90,47 +92,37 @@ export class ProductComponent {
     });
   }
 
-  dtype:string='File';
-
-  op1:any="operand 1";
-  op2:any="operand 2";
-  op="operation";
-  doCalc(){
-    console.log("calculation part "+this.op1,this.op,this.op2);
-    
-    if(this.op=="+"){
-      this.value=this.op1+this.op2;
-    }
-    else if(this.op=="-"){
-      this.value=this.op1-this.op2;
-    }
-    else if(this.op=="*"){
-      this.value=this.op1*this.op2;
-    }
-    else if(this.op=="/"){
-      this.value=this.op1/this.op2;
-    }
-    else{
-      console.log("invalid operation");
-    }
-  }
-  operations= [
-    {value: 'add-0', viewValue: '+'},
-    {value: 'subtract-1', viewValue: '-'},
-    {value: 'multiply-2', viewValue: '*'},
-    {value: 'division-2', viewValue: '/'}
-  ];
+  dtype:string='String';
 
   selectedFile!:File;
   onFileSelected(event: any) {
-    
     console.log(this.selectedFile);
-    
     const file = event.target.files[0];
     this.selectedFile=file;
     console.log(this.selectedFile);
-    
-    
+  }
+
+  startDerive(){
+    this.dtype='Number'
+    const product={
+      "details":this.productQ,
+    }
+    const dialogRef = this.dialog.open(DerivationComponent,{
+      data:product
+    });
+    dialogRef.afterClosed().subscribe((data?: any) => {
+      // console.log(data.flag);
+      // if (this.confirmed) {
+        
+      // }
+      if(data){
+      this.value=data;
+      }
+    });
+  }
+
+  removeField(index:number){
+    this.productQ.splice(index, 1);
   }
   
 }

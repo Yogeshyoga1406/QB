@@ -1,0 +1,131 @@
+
+<!-- <div class="first-line"><button (click)="back()" class="first-line-button">X</button></div> -->
+
+    <div  style="padding: 20px; background-color: #f7fcfc;">
+        <form>
+            <div>
+              <form>
+                <div style="display: flex; justify-content: space-between;">
+                    <div>
+                       <h1 style="color: #38788d; font-size: 26px;  font-family: cursive;">Edit Product Details</h1>
+                      <mat-form-field >
+                      <mat-label>Product Id</mat-label>
+                      <input matInput placeholder="Ex. Product" type="text" [(ngModel)]="product.id" [ngModelOptions]="{standalone:true}"
+                      id="product.id" name="product.id" disabled>
+                    </mat-form-field>
+                    </div>
+                    <div>
+                      <img [src]="getImageDataUrl(product.file.data)" alt="" *ngIf="product.file!=null"
+                      style="width: 130px; height: 80px; border: 1px solid black; border-radius: 10%;">
+                      &nbsp;&nbsp;&nbsp;<input type="file" (change)="onFileSelected($event)" style="background-color: rgb(243, 207, 207);" />
+                      <button *ngIf="product.file!=null" (click)="removeImage()" mat-button color="warn" ><mat-icon>delete_forever</mat-icon></button>
+                      &nbsp;&nbsp;
+                       <p *ngIf="product.file!=null">Product Image</p>
+                    </div>
+                  </div>
+                
+                <br>
+              
+                <span class="form-group" *ngFor="let det of product.details; let myIndex=index">
+                  <mat-toolbar  *ngIf="myIndex==ind" style="background-color: #f7fcfc;">
+                    <div style="font-size: small;"  *ngIf="myIndex==ind">Edit field : </div>
+                    <div *ngIf="myIndex==ind">
+                      
+                      <input type="text" style="width: 100%; height: 30px; border: 1px solid rgb(22, 209, 22);" [(ngModel)]="det.field" [ngModelOptions]="{standalone:true}" class="form-control"
+                        id="details" name="details" placeholder="">
+                       
+                    </div>&nbsp;&nbsp;
+                    <div><button mat-button color="white" *ngIf="myIndex==ind" (click)="editFieldComplete()">✔️</button></div>
+                  </mat-toolbar>
+                 
+                  <mat-form-field style="width: 12%;" >
+                    <mat-label>{{det.field}} </mat-label>
+                    <input matInput placeholder=""  [(ngModel)]="det.value" [ngModelOptions]="{standalone:true}" 
+                    id="details" name="details">
+                  </mat-form-field>
+                  <span> <button (click)="openDialog(myIndex)" mat-button color="warn" ><mat-icon>delete_forever</mat-icon></button></span>
+                   <span> <button (click)="editField(myIndex)" mat-button color="primary"><mat-icon>edit</mat-icon></button></span>
+                  
+                </span>
+                
+              </form>
+            </div>            
+            <form [hidden]="sa">
+                <mat-form-field appearance="outline">
+                  <mat-label>Field</mat-label>
+                  <input matInput placeholder="Ex. Product" type="text" [(ngModel)]="field" [ngModelOptions]="{standalone:true}"
+                  id="field" name="field">
+                </mat-form-field>&nbsp;
+                    <label class="example-margin">please select data type:</label>
+                    <mat-radio-group [(ngModel)]="dtype" [ngModelOptions]="{standalone:true}">
+                      <mat-radio-button  value="String">
+                        String
+                      </mat-radio-button>
+                      <mat-radio-button  value="Number">
+                        Number
+                      </mat-radio-button>
+                      <mat-radio-button  value="Date">
+                        Date
+                      </mat-radio-button>
+                      <mat-radio-button  value="Desc">
+                        Description
+                      </mat-radio-button>&nbsp;&nbsp;
+                      <button (click)="startDerive(product.id)" class="btn btn-dark ">
+                        <!-- <mat-radio-button  value="Calc" >
+                          Derivation
+                        </mat-radio-button> -->
+                        Derivation
+                      </button>
+                    </mat-radio-group>&nbsp;
+                    
+                <mat-form-field *ngIf="dtype==='String'" appearance="outline">
+                    <mat-label>Value--string</mat-label>
+                    <input matInput placeholder="Ex. Shoe" type="text" [(ngModel)]="value" [ngModelOptions]="{standalone:true}"
+                    id="value" name="value">
+                </mat-form-field>
+                <mat-form-field *ngIf="dtype==='Number'" appearance="outline">
+                    <mat-label>Value--number</mat-label>
+                    <input matInput placeholder="Ex. Shoe" type="number" [(ngModel)]="value" [ngModelOptions]="{standalone:true}"
+                    id="value" name="value">
+                </mat-form-field>
+                
+                <mat-form-field *ngIf="dtype==='Date'" appearance="outline">
+                  <mat-label>Choose a date</mat-label>
+                  <input matInput [matDatepicker]="picker" [(ngModel)]="value" [ngModelOptions]="{standalone:true}"
+                  id="value" name="value">
+                  <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                
+                <mat-form-field *ngIf="dtype==='Desc'" style="width: 50%;" appearance="outline">
+                  <mat-label>Leave a comment</mat-label>
+                  <textarea matInput placeholder="Ex. It makes me feel..." [(ngModel)]="value" [ngModelOptions]="{standalone:true}"
+                  id="value" name="value"></textarea>
+                </mat-form-field>
+                &nbsp;&nbsp;
+                <button style="border-radius: 0%;" class="btn btn-primary" (click)="add()">➕</button>
+    
+              <mat-form-field *ngIf="dtype==='Calc'" appearance="outline">
+                  <mat-label>Value--number</mat-label>
+                  <input matInput placeholder="100" type="number" [(ngModel)]="value" [ngModelOptions]="{standalone:true}"
+                  id="value" name="value">
+              </mat-form-field>
+               
+            </form> 
+            <br>
+            <div style="text-align: center; position: sticky;" class="footer">
+              <button style=" margin-bottom: 30px;" type="submit" class="btn btn-dark mt-4"
+              (click)="update(product)"><span><mat-icon>update</mat-icon></span> Update</button>
+              <button style="margin-left: 80px; color: white; margin-bottom: 30px;" type="submit" class="btn btn-primary mt-4"
+              (click)="showAdd()"><span><mat-icon>add</mat-icon></span> Add Fields</button>
+              <button style="margin-left: 80px; margin-bottom: 30px;" type="submit" 
+              class="btn btn-dark mt-4" (click)="back()"><span><mat-icon>close</mat-icon></span>Close</button>
+          </div>
+        </form>
+    </div>
+    
+
+
+
+

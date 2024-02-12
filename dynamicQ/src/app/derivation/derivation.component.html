@@ -1,0 +1,38 @@
+ 
+<div class="first-line"><button (click)="closeDialogBox()" class="first-line-button">✕</button></div>
+<div style="padding: 10px;">
+<div>
+  <p style="font-family: cursive; color: brown; text-align: center;">Calculation</p>
+  <!-- <p *ngIf="numCount<1" style="font-family: cursive; color: rgb(241, 236, 236); 
+  text-align: center; background-color: rgb(250, 5, 5);">&nbsp;add some numeric field to perform calculation&nbsp;</p> -->
+  <span style="font-family: cursive;">Input : {{input}}</span><br>
+  <span *ngIf="value!=null" style="color: blue;">answer : {{value}}</span>
+  <div style="display: flex; justify-content: center; padding: 20px;">
+    <div *ngFor="let det of product.details">
+      <span (click)="addInputValue(det.value)">
+        <button  *ngIf="isNumber(det.value)" class="btn btn-warning">
+          {{det.field}}
+        </button>&nbsp;
+      </span>
+    </div>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <div style="display: block;">    <button class="btn btn-secondary" (click)="removeInput()" style="width: 120%;">C</button><br>
+    <button class="btn btn-danger" (click)="addInputAction('+')" style="width: 120%; font-weight: 400;">➕</button><br>
+    <button class="btn btn-primary" (click)="addInputAction('-')" style="width: 120%;">➖</button><br>
+    <button class="btn btn-danger" (click)="addInputAction('*')" style="width: 120%;">✖️</button><br>
+    <button class="btn btn-primary" (click)="addInputAction('/')" style="width: 120%;">➗</button><br>
+  </div>
+</div>
+</div>
+
+<div style="display: flex;margin-bottom: 20px; justify-content: center;">
+  <button [disabled]="!(
+  input.charAt(input.length-1)!='+'&&
+  input.charAt(input.length-1)!='-'&&
+  input.charAt(input.length-1)!='*'&&
+  input.charAt(input.length-1)!='/')"
+  class="btn btn-success" (click)="derive()">calculate</button>&nbsp;&nbsp;
+  <button class="btn btn-dark" (click)="back()">assign</button>
+</div>
+
+</div>

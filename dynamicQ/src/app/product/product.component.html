@@ -1,20 +1,14 @@
 <div class="container mt-4">
-    <!-- <div *ngIf="show" style="border: 1px solid rgb(202, 196, 196); border-radius: 5px;">
-        <h3 style="color: #056905; text-align: center;">Saved Successfully</h3>
-        <button style="width: 90px; text-align: center; margin-bottom: 5px;margin-left: 5px;" class="btn btn-info" (click)="unShow()">Ok</button>
-    </div> -->
     <br>
     <div class="card" style=" background-color: #f7fcfc; ">
         <div style="padding: 20px;">
-            <h1 style="color: #38788d; font-family: cursive;"><span style="color: rgb(74, 74, 128);"><mat-icon>build</mat-icon></span> Build quotation for your product</h1>
-            <p style="text-align: right; color: purple;" *ngIf="fieldCount>0">Number of fields added : 
-                <span class="nooff"><span *ngIf="fieldCount<=9">0</span>{{fieldCount}}</span></p>
-        <form enctype="multipart/form-data">
-            <!-- <div class="form-group">
-                <label for="field">Field  <span style="color: red;">*</span></label>
-                <input type="text" [(ngModel)]="field" [ngModelOptions]="{standalone:true}" class="form-control"
-                    id="field" name="field" placeholder="ex:- product">
-            </div> -->
+            <h1 style="color: #38788d; font-family: cursive;">📄 Build quotation for your product</h1>
+            <!-- <p style="text-align: right; color: purple;" *ngIf="fieldCount>0">Number of fields added : 
+                <span class="nooff"><span *ngIf="fieldCount<=9">0</span>{{fieldCount}}</span>
+            </p> -->
+       <div style="display: flex; justify-content: space-between;">
+        <div>
+          <form enctype="multipart/form-data">
             <section>
                 <label class="example-margin">please select data type:</label>
                 <mat-radio-group [(ngModel)]="dtype" [ngModelOptions]="{standalone:true}">
@@ -27,16 +21,19 @@
                   <mat-radio-button value="Date">
                     Date
                   </mat-radio-button>&nbsp;
-                  <mat-radio-button value="Calc">
-                    Derivation
-                  </mat-radio-button>&nbsp;
                   <mat-radio-button value="Desc">
                     Description
                   </mat-radio-button>
-                  
                   <mat-radio-button class="example-margin" value="File">
                     File
                   </mat-radio-button>
+                  &nbsp;&nbsp;
+                      <button (click)="startDerive()" class="btn btn-dark ">
+                        <!-- <mat-radio-button  value="Calc" >
+                          Derivation
+                        </mat-radio-button> -->
+                        derivation
+                      </button>
                 </mat-radio-group>
               </section><br>
             <mat-form-field *ngIf="dtype!='File'">
@@ -45,33 +42,18 @@
                 id="field" name="field">
             </mat-form-field>&nbsp;&nbsp;&nbsp;
             
-            <!-- <div class="form-group" *ngIf="dtype==='String'">
-                <label for="value">Value <span style="color: red;">*</span> <span style="color: rgb(179, 174, 174);">--String</span></label>
-                <input type="text" [(ngModel)]="value" [ngModelOptions]="{standalone:true}" class="form-control"
-                    id="value" name="value" placeholder="ex:- shoe">
-            </div> -->
             <mat-form-field *ngIf="dtype==='String'">
                 <mat-label>Value--string</mat-label>
                 <input matInput placeholder="Ex. Shoe" type="text" [(ngModel)]="value" [ngModelOptions]="{standalone:true}"
                 id="value" name="value">
             </mat-form-field>
-            
-            <!-- <div class="form-group"  *ngIf="dtype==='Number'">
-                <label for="value">Value <span style="color: red;">*</span> <span style="color: rgb(179, 174, 174);">--Number</span></label>
-                <input type="number" [(ngModel)]="value" [ngModelOptions]="{standalone:true}" class="form-control"
-                    id="value" name="value" placeholder="ex:- 100">
-            </div> -->
+           
             <mat-form-field *ngIf="dtype==='Number'">
                 <mat-label>Value--number</mat-label>
                 <input matInput placeholder="Ex. Shoe" type="number" [(ngModel)]="value" [ngModelOptions]="{standalone:true}"
                 id="value" name="value">
             </mat-form-field>
 
-            <!-- <div class="form-group"  *ngIf="dtype==='Date'">
-                <label for="value">Value <span style="color: red;">*</span> <span style="color: rgb(179, 174, 174);">--Date</span></label>
-                <input type="date" [(ngModel)]="value"  [ngModelOptions]="{standalone:true}" class="form-control"
-                    id="value" name="value" placeholder="">
-            </div> -->
             <mat-form-field *ngIf="dtype==='Date'">
                 <mat-label>Choose a date</mat-label>
                 <input matInput [matDatepicker]="picker" [(ngModel)]="value" [ngModelOptions]="{standalone:true}"
@@ -79,13 +61,8 @@
                 <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
+            </mat-form-field>
             
-            <!-- <div class="form-group"  *ngIf="dtype==='Desc'">
-                <label for="value">Value <span style="color: red;">*</span> <span style="color: rgb(179, 174, 174);">--description</span></label>   
-                <textarea  rows="3" [(ngModel)]="value" [ngModelOptions]="{standalone:true}" class="form-control"
-                id="value" name="value" placeholder="Ex :- type something about your product"></textarea>
-            </div> -->
             <mat-form-field *ngIf="dtype==='Desc'" style="width: 50%;">
                 <mat-label>Leave a comment</mat-label>
                 <textarea matInput placeholder="Ex. It makes me feel..." [(ngModel)]="value" [ngModelOptions]="{standalone:true}"
@@ -95,35 +72,6 @@
                 <p><b>&nbsp;&nbsp;Add Image</b></p>
                 <input class="form-control" type="file" (change)="onFileSelected($event)"/>
               </div>
-            <form *ngIf="dtype==='Calc'">
-                
-                <div class="input-group" style="width: 75%;">
-                    <select class="form-select" name="op1" id="op1" [(ngModel)]="op1" [ngModelOptions]="{standalone:true}">
-                        <option selected disabled>operand 1</option>
-                        <option *ngFor="let det of productQ" [value]="det.value">{{det.field}}</option>
-                    </select>&nbsp;&nbsp;&nbsp;
-                    <select class="form-select myop" aria-label="Default select example" name="op" id="op" [(ngModel)]="op" [ngModelOptions]="{standalone:true}">
-                        <option selected disabled>operation</option>
-                        <option *ngFor="let operation of operations" [value]="operation.viewValue">{{operation.viewValue}}</option>
-                    </select>&nbsp;&nbsp;&nbsp;
-                    <select class="form-select" aria-label="Default select example"  name="op2" id="op2" [(ngModel)]="op2" [ngModelOptions]="{standalone:true}">
-                        <option selected disabled>operand 2</option>
-                        <option *ngFor="let det of productQ" [value]="det.value">{{det.field}}</option>
-                    </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button  class="btn btn-success" (click)="doCalc()">Calculate</button>
-                </div>  <br>
-                
-                <!-- <div class="form-group">
-                    <label for="value">Value <span style="color: red;">*</span> <span style="color: rgb(179, 174, 174);">--calc</span></label>
-                    <input type="number" [(ngModel)]="value" [ngModelOptions]="{standalone:true}" class="form-control"
-                        id="value" name="value" placeholder="">
-                </div> -->
-                <mat-form-field>
-                    <mat-label>Value--calc</mat-label>
-                    <input matInput placeholder="Ex. Shoe" type="text" [(ngModel)]="value" [ngModelOptions]="{standalone:true}"
-                    id="value" name="value">
-                </mat-form-field>
-            </form>
             
             <br>
            <!-- <div style="text-align: center;">
@@ -140,15 +88,30 @@
               </button>
             </div>
             <div>
-              <button class="button" style="margin-left: 70px;" (click)="add()" type="submit"><span><mat-icon>add</mat-icon></span>
+              <button class="button" style="margin-left: 50px;" (click)="add()" type="submit"><span><mat-icon>add</mat-icon></span>
                 <span>Add Field</span>
               </button>
             </div>
+          
            </div>
-
-           
         
         </form>
+        </div>
+
+        <div>
+          <h3 style="color: brown; font-family: cursive;">Added fields&nbsp;:&nbsp;
+            <span>{{productQ.length}}</span>
+          </h3>
+          <span *ngIf="productQ.length!=0" style="background-color: rgb(195, 248, 195); height: 50px;">
+            <p *ngFor="let data of productQ; let i=index">{{data.field}}&nbsp;&nbsp;:&nbsp;&nbsp;{{data.value}}
+              <button mat-fab color="warn" style="width: 25px; height: 25px;" type="submit" 
+              (click)="removeField(i)">
+              <mat-icon style="font-size: 120%; margin-top: 10px;margin-left: 1px;">delete</mat-icon>
+              </button>
+            </p>
+          </span>
+        </div>
+       </div>
         </div>
         
     </div>

@@ -1,21 +1,22 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject ,OnInit} from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
-import { UpdateComponent } from '../update/update.component';
 import { SuccessComponent } from '../success/success.component';
+import { UpdateComponent } from '../update/update.component';
+import { DerivationComponent } from '../derivation/derivation.component';
 
 @Component({
-  selector: 'app-demodialog',
-  templateUrl: './demodialog.component.html',
-  styleUrls: ['./demodialog.component.css']
+  selector: 'app-demo-update',
+  templateUrl: './demo-update.component.html',
+  styleUrls: ['./demo-update.component.css']
 })
-export class DemodialogComponent implements OnInit{
+export class DemoUpdateComponent {
 
   constructor(private http:HttpClient,private router:Router,private route:ActivatedRoute,private _snackBar: MatSnackBar,
-    private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) data: any,  private dialogRef: MatDialogRef<UpdateComponent>){
+    private dialog: MatDialog, @Inject(MAT_DIALOG_DATA) data: any,  private dialogRef: MatDialogRef<DemoUpdateComponent>){
       // this.id=this.route.snapshot.params['id'];
       this.id=data.id;
       this.getById(this.id);
@@ -25,9 +26,7 @@ export class DemodialogComponent implements OnInit{
     product:any;
   
     ngOnInit(): void {
-      // this.id=this.route.snapshot.params['id'];
-      // this.getById(this.id);
-      // console.log(this.id);
+      
     }
     getById(id:number){
       this.http.get('http://localhost:8082/api/product/getById/'+id).subscribe(data=>{
@@ -79,7 +78,7 @@ export class DemodialogComponent implements OnInit{
         this.selectedFile;
         this.router.navigate(['products']);
         this.openSnackBar(this.message, 'ok');
-      
+
       })
       }
       
@@ -103,10 +102,12 @@ export class DemodialogComponent implements OnInit{
     }
   
     remove(index:number){
-      console.log(index);
       this.product.details.splice(index, 1);
       console.log(this.product.details);
       
+    }
+    removeImage(){
+      this.product.file=null;
     }
     field!:string;
     value!:any;
@@ -122,109 +123,13 @@ export class DemodialogComponent implements OnInit{
       
       this.field="";
       this.value="";
-      this.op1=0;
-      this.op2=0;
-      this.op3=0;
-      this.o1="";
-      this.o2="";
+     
     }
     sa=true;
     showAdd(){
       this.sa=false;
     }
-    operations= [
-      {value: 'add-0', viewValue: '+'},
-      {value: 'subtract-1', viewValue: '-'},
-      {value: 'multiply-2', viewValue: '*'},
-      {value: 'division-2', viewValue: '/'},
-    ];
-  
-    op1!:number;
-    op2!:number;
-    op3!:number;
-    o1="";
-    o2="";
     
-    doCalc(){
-      console.log("calculation part ",this.o1);
-      
-      if(this.o1!="" && this.o2==""){
-        if(this.o1=="+"){
-          this.value=this.op1+this.op2;
-        }
-        else if(this.o1=="-"){
-          this.value=this.op1-this.op2;
-        }
-        else if(this.o1=="*"){
-          this.value=this.op1*this.op2;
-        }
-        else if(this.o1=="/"){
-          this.value=this.op1/this.op2;
-        }
-        else{
-          console.log("invalid operation");
-        }
-      }
-      if(this.o1!="" && this.o2!=""){
-        if(this.o1=="+" && this.o2=="+"){
-          this.value=this.op1+this.op2+this.op3;
-        }
-        else if(this.o1=="+" && this.o2=="-"){
-          this.value=this.op1+this.op2-this.op3;
-        }
-        else if(this.o1=="+" && this.o2=="*"){
-          this.value=this.op1+this.op2*this.op3;
-        }
-        else if(this.o1=="+" && this.o2=="/"){
-          this.value=this.op1+this.op2/this.op3;
-        }
-        else if(this.o1=="-" && this.o2=="+"){
-          this.value=this.op1-this.op2+this.op3;
-        }
-        else if(this.o1=="-" && this.o2=="-"){
-          this.value=this.op1-this.op2-this.op3;
-        }
-        else if(this.o1=="-" && this.o2=="*"){
-          this.value=this.op1-this.op2*this.op3;
-        }
-        else if(this.o1=="-" && this.o2=="/"){
-          this.value=this.op1-this.op2/this.op3;
-        }
-        else if(this.o1=="*" && this.o2==""){
-          this.value=this.op1*this.op2-this.op3;
-        }
-        else if(this.o1=="*" && this.o2=="+"){
-          this.value=this.op1*this.op2+this.op3;
-        }
-        else if(this.o1=="*" && this.o2=="-"){
-          this.value=this.op1*this.op2-this.op3;
-        }
-        else if(this.o1=="*" && this.o2=="*"){
-          this.value=this.op1*this.op2*this.op3;
-        }
-        else if(this.o1=="*" && this.o2=="/"){
-          this.value=this.op1*this.op2/this.op3;
-        }
-        else if(this.o1=="/" && this.o2==""){
-          this.value=this.op1/this.op2-this.op3;
-        }
-        else if(this.o1=="/" && this.o2=="+"){
-          this.value=this.op1/this.op2+this.op3;
-        }
-        else if(this.o1=="/" && this.o2=="-"){
-          this.value=this.op1/this.op2-this.op3;
-        }
-        else if(this.o1=="/" && this.o2=="*"){
-          this.value=this.op1/this.op2*this.op3;
-        }
-        else if(this.o1=="/" && this.o2=="/"){
-          this.value=this.op1/this.op2/this.op3;
-        }
-        else{
-          console.log("invalid operation");
-        }
-      }
-    }
     openDialog(index:number) {
       const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
       data:{
@@ -253,5 +158,21 @@ export class DemodialogComponent implements OnInit{
       this.dialogRef.close(true);
       // this.router.navigate(['products']);
     }
-
+    startDerive(pid:number){
+      this.dtype='Number';
+      const dialogRef = this.dialog.open(DerivationComponent,{
+        data:{
+            id:pid
+        }
+      });
+      dialogRef.afterClosed().subscribe((data?: any) => {
+        // console.log(data.flag);
+        // if (this.confirmed) {
+          
+        // }
+        if(data){
+        this.value=data;
+        }
+      });
+    }
 }

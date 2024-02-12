@@ -1,10 +1,49 @@
-<h5>Add the fields</h5>
-<mat-dialog-content>
-<p>{{message}}</p>
-</mat-dialog-content>
-<mat-dialog-actions align="center">
-<button mat-raised-button color="primary" (click)="onConfirmClick()" tabindex="1">{{confirmButtonText}}</button>
-<button mat-raised-button mat-dialog-close tabindex="-1">{{cancelButtonText}}</button>
-</mat-dialog-actions>
+<div>
+  <div style="text-align: center;">
+    <img style="height: 50px; max-width: 70%; border-radius: 15px 0px 15px 0px; padding: 5px; display: inline-block;" 
+    src="data:image/png;base64,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" alt="Logo">
+  </div>
+  <div style="margin-left: 30px;">
+    <!-- <h4>Dear {{ dynamicData }},</h4> -->
+    <p>
+      We would like to thank you for spending your time visiting our booth at <b>BENGALURU TECH SUMMIT</b> 2023, held in Bengaluru. It was our pleasure
+       and honour as we enjoyed many inspiring conversations. <br><br>
+      The exhibition was a great success for <b>Suktha Business Solutions</b> Bengaluru and gave us the opportunity to showcase all our successful product
+       portfolio and new additions, which generated a great interest. <br><br>
+       Thanks for providing some time talking to us at the demo booth, we are happy to connect online at your convenience to discuss further on the 
+       requirement and see how we can be part of your digital transformation journey. <br><br>
+       Attached our product brochure for your quick reference.
+    </p>
+    <span>
+      If you have further inquiries or in case you want more information about our products, 
+      please feel free to contact us at: <br>
+      <span>
+        Phone No : +91-9513997444 <br>
+        Suport No : +91-7022389272 <br>
+        <!-- Support Email : support@suktha.com <br>
+        Demo Email : demo@suktha.com -->
+        </span>
+      <br><br>
+      <div style="text-align: center;">
+        <img style="height: 100px; max-width: 90%; border-radius: 15px 0px 15px 0px; padding: 5px; display: inline-block;" 
+        src="cid:suktha.png" alt="Logo">
+      </div>
+      Best Regards,<br>
+      Santhosh V <br>
+      Director and CEO <br>
+      Suktha Solutions Pvt Ltd
+      <br><br>
+      To learn more about Suktha. Click the 
+      <a href="https://suktha.com/">link</a>
+      <br>
+      Social Connects: 
+      <a href=" https://www.facebook.com/sukthasolutions/">Facebook</a> | <a href="https://www.linkedin.com/company/sukthasolutions/">LinkedIn</a>
 
-
+    </span>
+      
+  </div><br>
+  <h3 style="text-align: center; color: rgb(88, 90, 88);" >Thank you...</h3>
+  </div><br>
+  <div style="display: flex; justify-content: center; color: rgb(123, 124, 123);">
+      
+  </div>

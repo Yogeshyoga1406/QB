@@ -1,169 +1,168 @@
 .example-spacer {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
- 
+
 .nooff{
-    border: 0.5px solid blue ;
-    border-radius: 150%;
-    padding: 5px;
-    width: 150%;
-    color: white;
-    background-color: blue;
+  border: 0.5px solid blue ;
+  border-radius: 150%;
+  padding: 5px;
+  width: 150%;
+  color: white;
+  background-color: blue;
 }
 
 .con-like {
-    --red: rgb(255, 50, 50);
-    position: relative;
-    width: 25px;
-    height: 44px;
-  }
-  
-  .con-like .like {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+  --red: rgb(255, 50, 50);
+  position: relative;
+  width: 25px;
+  height: 44px;
+}
+
+.con-like .like {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 20;
+  cursor: pointer;
+}
+
+.con-like .checkmark {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.con-like .outline,
+.con-like .filled {
+  fill: var(--red);
+  position: absolute;
+}
+
+.con-like .filled {
+  animation: kfr-filled 0.5s;
+  display: none;
+}
+
+.con-like .celebrate {
+  position: absolute;
+  animation: kfr-celebrate 0.5s;
+  animation-fill-mode: forwards;
+  display: none;
+}
+
+.con-like .poly {
+  stroke: var(--red);
+  fill: var(--red);
+}
+
+.con-like .like:checked ~ .checkmark .filled {
+  display: block
+}
+
+.con-like .like:checked ~ .checkmark .celebrate {
+  display: block
+}
+
+@keyframes kfr-filled {
+  0% {
     opacity: 0;
-    z-index: 20;
-    cursor: pointer;
-  }
-  
-  .con-like .checkmark {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .con-like .outline,
-  .con-like .filled {
-    fill: var(--red);
-    position: absolute;
-  }
-  
-  .con-like .filled {
-    animation: kfr-filled 0.5s;
-    display: none;
-  }
-  
-  .con-like .celebrate {
-    position: absolute;
-    animation: kfr-celebrate 0.5s;
-    animation-fill-mode: forwards;
-    display: none;
-  }
-  
-  .con-like .poly {
-    stroke: var(--red);
-    fill: var(--red);
-  }
-  
-  .con-like .like:checked ~ .checkmark .filled {
-    display: block
-  }
-  
-  .con-like .like:checked ~ .checkmark .celebrate {
-    display: block
-  }
-  
-  @keyframes kfr-filled {
-    0% {
-      opacity: 0;
-      transform: scale(0);
-    }
-  
-    50% {
-      opacity: 1;
-      transform: scale(1.2);
-    }
-  }
-  
-  @keyframes kfr-celebrate {
-    0% {
-      transform: scale(0);
-    }
-  
-    50% {
-      opacity: 0.8;
-    }
-  
-    100% {
-      transform: scale(1.2);
-      opacity: 0;
-      display: none;
-    }
+    transform: scale(0);
   }
 
-  .parent {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 1fr;
-    grid-column-gap: 100px;
-    grid-row-gap: 0px;
-  }
-
-  .parent1 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr;
-    grid-column-gap: 50px;
-    grid-row-gap: 0px;
-  }
-
-  .red-snackbar{
-    background-color: rgb(153, 50, 50);
-    color:rgb(20, 6, 150);
-  }
-
-  /* ========button============= */
-
-  .animated-button {
-    position: relative;
-    display: inline-block;
-    padding: 10px 10px;
-    border: none;
-    background-color: #2196F3;
-    color: #fff;
-    font-size: 14px;
-    text-transform: uppercase;
-    font-weight: 600;
-    cursor: pointer;
-    border-radius: 8px;
-    overflow: hidden;
-    transition: all 0.8s cubic-bezier(0.23, 1, 0.320, 1);
-  }
-  
-  .animated-button:before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 110%;
-    background-color: #020202;
-    /* #f0e479 */
-    opacity: 0;
-    transition: all 0.8s cubic-bezier(0.23, 1, 0.320, 1);
-  }
-  
-  .animated-button span {
-    position: relative;
-    z-index: 1;
-  }
-  
-  .animated-button:hover {
-    color: #ffffff;
-    background-color: #c00202;
-    box-shadow: 0 0 20px hsla(263, 77%, 31%, 0);
-  }
-  
-  .animated-button:active {
-    scale: 0.9;
-  }
-  
-  .animated-button:hover:before {
-    transform: translate(-50%, -50%) rotate(45deg);
+  50% {
     opacity: 1;
+    transform: scale(1.2);
   }
-  
+}
+
+@keyframes kfr-celebrate {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+    display: none;
+  }
+}
+
+.parent {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 100px;
+  grid-row-gap: 0px;
+}
+
+.parent1 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 50px;
+  grid-row-gap: 0px;
+}
+
+.red-snackbar{
+  background-color: rgb(153, 50, 50);
+  color:rgb(20, 6, 150);
+}
+
+/* ========button============= */
+
+.animated-button {
+  position: relative;
+  display: inline-block;
+  padding: 10px 10px;
+  border: none;
+  background-color: #2196F3;
+  color: #fff;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.animated-button:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 110%;
+  background-color: #020202;
+  /* #f0e479 */
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.animated-button span {
+  position: relative;
+  z-index: 1;
+}
+
+.animated-button:hover {
+  color: #ffffff;
+  background-color: #c00202;
+  box-shadow: 0 0 20px hsla(263, 77%, 31%, 0);
+}
+
+.animated-button:active {
+  scale: 0.9;
+}
+
+.animated-button:hover:before {
+  transform: translate(-50%, -50%) rotate(45deg);
+  opacity: 1;
+}

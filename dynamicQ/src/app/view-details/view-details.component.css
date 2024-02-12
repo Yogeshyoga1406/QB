@@ -1,0 +1,13 @@
+.first-line{
+    display: flex; 
+    justify-content: flex-end;
+}
+.first-line-button{
+    background-color: rgb(243, 71, 71); 
+    color: white; 
+    border: none; 
+    padding: 1px 13px;
+}
+.first-line-button:hover{
+    background-color: red;
+}

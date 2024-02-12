@@ -21,71 +21,8 @@ select{
     background-color: blue;
 }
 mat-form-field{
-    width: 49%;
+    width: 47%;
 }
-
-/* .button {
-    all: unset;
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding: 0.3em 1em;
-    border: mediumspringgreen solid 0.15em;
-    border-radius: 0.25em;
-    color: rgb(0, 250, 62);
-    font-size: 1.3em;
-    font-weight: 500;
-    cursor: pointer;
-    overflow: hidden;
-    transition: border 300ms, color 300ms;
-    user-select: none;
-  }
-  
-  .button p {
-    z-index: 1;
-  }
-  
-  .button:hover {
-    color: #db0909;
-  }
-  
-  .button:active {
-    border-color: teal;
-  }
-  
-  .button::after, .button::before {
-    content: "";
-    position: absolute;
-    width: 9em;
-    aspect-ratio: 1;
-    background: aqua;
-    opacity: 50%;
-    border-radius: 50%;
-    transition: transform 500ms, background 300ms;
-  }
-  
-  .button::before {
-    left: 0;
-    transform: translateX(-8em);
-  }
-  
-  .button::after {
-    right: 0;
-    transform: translateX(8em);
-  }
-  
-  .button:hover:before {
-    transform: translateX(-1em);
-  }
-  
-  .button:hover:after {
-    transform: translateX(1em);
-  }
-  
-  .button:active:before,
-  .button:active:after {
-    background: teal;
-  }*/
 
   .hov:hover{
     background-color: aqua;
@@ -159,7 +96,7 @@ mat-form-field{
 
    .button {
     position: relative;
-    padding: 6px 15px;
+    padding: 3px 10px;
     border-radius: 7px;
     border: 1px solid rgb(61, 106, 255);
     font-size: 14px;
@@ -167,7 +104,7 @@ mat-form-field{
     font-weight: 600;
     letter-spacing: 2px;
     background: transparent;
-    background-color: rgb(238, 142, 142);
+    background-color: rgb(240, 188, 240);
     color: #000000;
     overflow: hidden;
     box-shadow: 0 0 0 0 transparent;
@@ -232,4 +169,17 @@ mat-form-field{
     transition: box-shadow 0.2s ease-in;
   }
   
+
+  .remove-i-button{
+    border: none;
+    border-radius: 100%;
+    color: white;
+    background-color: rgb(243, 71, 71);
+   
+  }
+
+  .remove-i-button:hover{
+    background-color: red;
+    color: red;
+  }
    
